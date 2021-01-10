@@ -607,7 +607,6 @@ def get_pretrained_model(model_name, n_classes, multi_gpu):  # Retrieve a pre-tr
             nn.Linear(n_inputs, 256),
             nn.BatchNorm1d(256),  # 1d
             nn.LeakyReLU(),  # nn.ReLU()
-            nn.BatchNorm1d(256),  # 1d
             nn.Dropout(0.4),
             nn.Linear(256, n_classes),
             nn.LogSoftmax(dim=1)
