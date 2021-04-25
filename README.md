@@ -8,6 +8,6 @@ The implementation is done in Pytorch and there is a possibility to choose betwe
 
 These are the traning results i've got:
 
-![alt text](https://github.com/chacoff/XrayImagesClassifier/blob/main/data/metrics.png?raw=true)
+![alt text](https://github.com/chacoff/XrayImagesClassifier/blob/main/data/metrics0.png?raw=true)
 
 If is there anything you'd like to improve, i'll be happy to hearing from you.
