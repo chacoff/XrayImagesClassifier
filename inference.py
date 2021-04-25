@@ -22,8 +22,8 @@ warnings.filterwarnings('ignore', category=UserWarning)
 
 args = {
     'data_test': 'Covid19\\test',
-    'weights': 'weights\\resnet50\\inference.pt',
-    'random': True,
+    'weights': 'weights\\inference.pt',
+    'random': False,
     'save_png': True,
 }
 
@@ -35,6 +35,7 @@ if args['random'] is True:
 else:  # choose manually an image from dataset/test
     image = '\\Covid\\auntminnie-d-2020_01_28_23_51_6665_2020_01_28_Vietnam_coronavirus.jpeg'
     Xray_image = args['data_test'] + image
+
 
 real_label = Xray_image.split('\\')[-2]
 print(f'[INFO] image Label: {real_label}')
@@ -51,7 +52,7 @@ else:
 model = torch.load(weight, map_location=load_Torch)  # map_location could be remove in presence of GPU
 model.eval()
 
-ok_prediction = display_prediction2(Xray_image, model, real_label, topk=3, save=args['save_png'])
+ok_prediction, winner = display_prediction2(Xray_image, model, real_label, topk=3, save=args['save_png'], show=True)
 
 if ok_prediction:
     print(f'[INFO] The neural network has classified correctly the image: {Xray_image}')

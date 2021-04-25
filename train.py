@@ -20,24 +20,26 @@ plt.rcParams['font.size'] = 10
 warnings.filterwarnings('ignore', category=FutureWarning)
 
 # Data location
-datadir = os.path.join('d:\\', 'AlienwareCoding', '4_CovidNet', 'Covid19')
+datadir = os.path.join('C:\\', 'Coding', '4_CovidNet', 'Covid19')
 traindir = os.path.join(datadir, 'train')
 validdir = os.path.join(datadir, 'test')  # valid
 testdir = os.path.join(datadir, 'test')
 save_file_name = 'weights\\best.pt'
 checkpoint_path = 'weights\\chkpt.pth'
+
 # Training Parameters
 adam_opt = False
 store_checkpoint = False
 show_summary = True
 pre_model = 'resnet50'  # vgg16 or resnet50
-lr = 0.001  # 0.0001 for Adam
-lr_plateau = 0.1  # decay learning rate factor
-weight_decay = 0.005
+lr = 0.001  # 0.0001 for Adam and 0.001 SGD
+lr_plateau = 0.1  # decay learning rate factor (gamma)
+lr_step = 5  # Decay by gamma every 5 epochs
+weight_decay = 0.0005
 momentum = 0.900  # for SGD
-batch_size = 8
+batch_size = 16
 epochs_train = 51
-epochs_stop = 10
+epochs_stop = 10  # early stop
 
 if cuda.is_available():  # Number of gpus and if to train on a gpu
     gpu_count = cuda.device_count()
@@ -50,6 +52,8 @@ if cuda.is_available():  # Number of gpus and if to train on a gpu
     print(f'[INFO] Pre-trained model: {pre_model}')
     print(f'[INFO] GPU: {gpu_count} {gpu_name} detected')
     print(f'[INFO] Multi GPU: {multi_gpu}')
+    load_Torch = 'cuda:' + str(torch.cuda.current_device())
+    print(f'[INFO] GPU: {load_Torch}')
     if adam_opt is True:
         print(f'[INFO] Optimizer: ADAM, learning rate: {lr}, batch size: {batch_size}, epochs: {epochs_train}, '
               f'lr on plateau{lr_plateau}, epochs early stop: {epochs_stop}')
@@ -98,7 +102,7 @@ cat_df = pd.DataFrame({'category': categories,
 cat_df.sort_values('n_train', ascending=False, inplace=True)
 cat_df.head()
 cat_df.tail()
-
+print(cat_df)
 # Dataframe of training images
 image_df = pd.DataFrame({
     'category': img_categories,
@@ -159,7 +163,7 @@ dataloaders = {
 trainiter = iter(dataloaders['train'])
 features, labels = next(trainiter)  # features.shape = (batch_size, color_channels, height, width)
 
-n_classes =len(data['train'].classes) # len(cat_df)
+n_classes =len(data['train'].classes)  # len(cat_df)
 print(f'[INFO] {n_classes} different classes.')
 
 
@@ -180,7 +184,7 @@ if show_summary:
         else:
             print(model.module.classifier[6])
     else:
-        summary(model, input_size=(3, 224, 224), batch_size=batch_size, device='cuda')  # input_size=channels,height,width
+        summary(model, input_size=(3, 224, 224), batch_size=batch_size, device='cuda')  # i_size=channels,height,width
         if pre_model == 'resnet50':
             print(model.fc)
         else:
@@ -199,7 +203,7 @@ if adam_opt is True:
 else:
     optimizer = optim.SGD(model.parameters(), lr=lr, momentum=momentum, weight_decay=weight_decay, nesterov=True)
 
-exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=7, gamma=lr_plateau)  # Decay by gamma every 7 epochs
+exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=lr_step, gamma=lr_plateau)
 
 if store_checkpoint is True:
     model, optimizer = load_checkpoint(path=checkpoint_path)
@@ -213,8 +217,7 @@ model, history = train(
     exp_lr_scheduler,
     save_file_name=save_file_name,
     max_epochs_stop=epochs_stop,
-    n_epochs=epochs_train,
-    print_every=1)
+    n_epochs=epochs_train)
 
 # save_checkpoint(model, path=checkpoint_path)
 torch.save(model, 'weights\\inference.pt')  # quick save for fast inference

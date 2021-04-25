@@ -119,11 +119,9 @@ def add_titlebox(ax, text, nolabels, pos):
     return ax
 
 
-def display_prediction2(image_path, model, real_label, topk=3, save=True):
+def display_prediction2(image_path, model, real_label, topk=3, save=True, show=True):
     img, ps, classes, y_obs = predict(image_path, model, topk)  # Get predictions
     result = pd.DataFrame({'p': ps}, index=classes)  # Convert results to dataframe for plotting
-    print(f'[INFO] image: {y_obs}')  # actual image location
-    print(result)
     win = result['p'].idxmax()
     win_prob = round(result['p'][win], 4)
     winner = win+', '+str(round(win_prob*100, 2))+'%'
@@ -151,10 +149,14 @@ def display_prediction2(image_path, model, real_label, topk=3, save=True):
         name = win+'_'+str(round(win_prob, 2))+'_'+(y_obs.split('\\')[-1])
         plt.savefig(os.path.join('data', name))
 
-    plt.show()
+    if show is True:
+        print(f'[INFO] image: {y_obs}')  # actual image location
+        print(result)
+        plt.show()
+
     plt.close('all')
 
-    return ok_pred
+    return ok_pred, win
 
 
 def process_image(image_path):
@@ -389,8 +391,7 @@ def train(model,
           scheduler,
           save_file_name,
           max_epochs_stop=3,
-          n_epochs=20,
-          print_every=2):
+          n_epochs=20):
     """
     Params
     --------
@@ -402,7 +403,6 @@ def train(model,
         save_file_name (str ending in '.pt'): file path to save the model state dict
         max_epochs_stop (int): maximum number of epochs with no improvement in validation loss for early stopping
         n_epochs (int): maximum number of training epochs
-        print_every (int): frequency of epochs to print training stats
     Returns
     --------
         model (PyTorch model): trained cnn with best weights
@@ -425,6 +425,7 @@ def train(model,
     overall_start = timer()
 
     # Main loop
+    # torch.backends.cudnn.benchmark = True
     for epoch in range(n_epochs):
 
         train_loss = 0.0  # keep track of training and validation loss each epoch
@@ -438,7 +439,8 @@ def train(model,
         # Training loop
         for ii, (data, target) in enumerate(train_loader):
             if cuda.is_available():  # Tensors to gpu
-                data, target = data.cuda(), target.cuda()
+                data, target = data.to('cuda'), target.to('cuda')
+                # data, target = data.cuda(), target.cuda()
 
             optimizer.zero_grad()  # Clear gradients
             output = model(data)  # requires_grad, Predicted outputs are log probabilities
@@ -468,7 +470,8 @@ def train(model,
 
                 for data, target in valid_loader:  # Validation loop
                     if cuda.is_available():  # Tensors to gpu
-                        data, target = data.cuda(), target.cuda()
+                        data, target = data.to('cuda'), target.to('cuda')
+                        # data, target = data.cuda(), target.cuda()
 
                     # Forward pass
                     output = model(data)  # requires_grad=True
@@ -493,9 +496,8 @@ def train(model,
                 history.append([train_loss, valid_loss, train_acc, valid_acc])
 
                 # Print training and validation results
-                if (epoch + 1) % print_every == 0:
-                    print(f'\nTraining Loss: {train_loss:.4f} \t\t Training Accuracy: {100 * train_acc:.2f}%')
-                    print(f'Validation Loss: {valid_loss:.4f} \t Validation Accuracy: {100 * valid_acc:.2f}%\n')
+                print(f'\nTraining Loss: {train_loss:.4f} \t\t Training Accuracy: {100 * train_acc:.2f}%')
+                print(f'Validation Loss: {valid_loss:.4f} \t Validation Accuracy: {100 * valid_acc:.2f}%\n')
 
                 # Save the model if validation loss decreases
                 if valid_loss < valid_loss_min:
@@ -521,7 +523,7 @@ def train(model,
                                 'valid_acc'
                             ])
                         return model, history
-        scheduler.step()
+        scheduler.step()  # the scheduler
     model.optimizer = optimizer  # Attach the optimizer
     total_time = timer() - overall_start  # Record overall time and print out stats
     print(f'\nBest epoch: {best_epoch} with loss: {valid_loss_min:.2f} and acc: {100 * valid_acc:.2f}%')
@@ -607,13 +609,14 @@ def get_pretrained_model(model_name, n_classes, multi_gpu):  # Retrieve a pre-tr
             nn.Linear(n_inputs, 256),
             nn.BatchNorm1d(256),  # 1d
             nn.LeakyReLU(),  # nn.ReLU()
-            nn.Dropout(0.4),
+            nn.Dropout(0.2),
             nn.Linear(256, n_classes),
             nn.LogSoftmax(dim=1)
         )
 
     if cuda.is_available():  # Move to gpu and parallelize
         model = model.to('cuda')
+        print('[INFO] Model to gpu')
 
     if multi_gpu:
         model = nn.DataParallel(model)
@@ -648,6 +651,8 @@ def all_plots(cat_df, history, where):
 
     axs[1, 1].plot()
 
+    if os.path.isfile(os.path.join(where, 'metrics.png')):
+        os.remove(os.path.join(where, 'metrics.png'))
     fig.tight_layout()
     fig.savefig(os.path.join(where, 'metrics.png'))
     plt.close('all')
