@@ -139,9 +139,9 @@ def display_prediction2(image_path, model, real_label, topk=3, save=True, show=T
     else:
         ok_pred = False
 
-    winner = 'Network: '+winner
+    winner = 'Prediction: '+winner
     add_titlebox(ax, winner, nolabels, pos=(0.03, 0.05))
-    real_label = 'Human Class: '+real_label
+    real_label = 'True Class: '+real_label
     add_titlebox(ax, real_label, nolabels, pos=(0.03, 0.11))
     plt.tight_layout()
 
