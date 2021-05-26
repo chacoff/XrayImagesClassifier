@@ -4,21 +4,23 @@ X-ray chest images of a free covid dataset already split between covid, pneumoni
 
 **INSTALL**
 
+
 **Conda**
 ```
-conda activate <env></br>
-conda install pip</br>
-pip freeze > requirements_ingfisica.txt</br>
+conda activate <env>
+conda install pip
+pip freeze > requirements_ingfisica.txt
 ```
 **PIP**
 ```
-python3 -m venv env</br>
-source env/bin/activate</br>
-pip install -r requirements.txt</br>
+python3 -m venv env
+source env/bin/activate
+pip install -r requirements.txt
 ```
 
 
 **Implementation**
+
 The implementation is done in Pytorch and there is a possibility to choose between 2 pre-trained model: ResNet50 and VGG-16. Early stopping, Decay in learning rate factor, Data Augmentation also available.
 
 **Training**
@@ -30,6 +32,7 @@ or
 Train.ipynb
 ```
 
+
 **Results**
 These are the traning results i've got:
 
@@ -38,7 +41,6 @@ These are the traning results i've got:
 If is there anything you'd like to improve, i'll be happy to hearing from you.
 
 <p align='center'>
-  
 <img src="https://github.com/chacoff/XrayImagesClassifier/blob/main/data/Covid_0.74_0100.jpeg" width="280">
 <img src="https://github.com/chacoff/XrayImagesClassifier/blob/main/data/Pneumonia_0.95_0109.jpeg" width="280">
 </p>
