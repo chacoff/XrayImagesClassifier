@@ -6,9 +6,9 @@ X-ray chest images of a free covid dataset already split between covid, pneumoni
 </br>
 
 <b>Conda</b>
-<p style="font-size:19x">conda activate <env></br>
+<font size="-1">conda activate <env></br>
 conda install pip</br>
-pip freeze > requirements_ingfisica.txt</br></p>
+pip freeze > requirements_ingfisica.txt</br></font>
   
 <b>PIP</b>
 <p style="font-size:9x">python3 -m venv env</br>
