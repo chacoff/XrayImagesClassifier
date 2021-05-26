@@ -2,9 +2,11 @@
 
 X-ray chest images of a free covid dataset already split between covid, pneumonia and healthy patients. I got the dataset from: https://www.kaggle.com/pranavraikokte/covid19-image-dataset. It is pretty small with only 317.
 
-<b>INSTALL</b> </br>
-<b>Conda</b>
-conda activate <env> </br>
+<b>INSTALL</b>
+</br>
+
+<b>Conda</b></br>
+conda activate <env></br>
 conda install pip</br>
 pip freeze > requirements_ingfisica.txt</br>
   
@@ -15,7 +17,7 @@ pip install -r requirements.txt</br>
 
 </br> </br>
 
-<b>Implementation</b>
+<b>Implementation</b></br>
 The implementation is done in Pytorch and there is a possibility to choose between 2 pre-trained model: ResNet50 and VGG-16. Early stopping, Decay in learning rate factor, Data Augmentation also available.
 
 These are the traning results i've got:
