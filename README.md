@@ -6,10 +6,11 @@ X-ray chest images of a free covid dataset already split between covid, pneumoni
 </br>
 
 <b>Conda</b></br>
+```
 conda activate <env></br>
 conda install pip</br>
 pip freeze > requirements_ingfisica.txt</br>
-  
+```
 <b>PIP</b></br>
 python3 -m venv env</br>
 source env/bin/activate</br>
@@ -22,7 +23,7 @@ The implementation is done in Pytorch and there is a possibility to choose betwe
 <b>Training</b></br>
 train.py</br>
 or</br>
-Train.ipynb</p>
+Train.ipynb
 
 </br> </br>
 <b>Results</b></br>
