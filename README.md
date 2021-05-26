@@ -6,7 +6,7 @@ X-ray chest images of a free covid dataset already split between covid, pneumoni
 </br>
 
 <b>Conda</b>
-<p style="font-size:9x">conda activate <env></br>
+<p style="font-size:19x">conda activate <env></br>
 conda install pip</br>
 pip freeze > requirements_ingfisica.txt</br></p>
   
@@ -22,7 +22,7 @@ The implementation is done in Pytorch and there is a possibility to choose betwe
 <b>Training</b>
 <p style="font-size:9x">train.py</br>
 or</br>
-Train.</p>
+Train.ipynb</p>
 
 These are the traning results i've got:
 
