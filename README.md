@@ -16,9 +16,11 @@ source env/bin/activate</br>
 pip install -r requirements.txt</br>
 
 </br> </br>
-
 <b>Implementation</b></br>
 The implementation is done in Pytorch and there is a possibility to choose between 2 pre-trained model: ResNet50 and VGG-16. Early stopping, Decay in learning rate factor, Data Augmentation also available.
+
+<b>Training</b>
+train.py</br>
 
 These are the traning results i've got:
 
