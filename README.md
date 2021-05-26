@@ -5,22 +5,24 @@ X-ray chest images of a free covid dataset already split between covid, pneumoni
 <b>INSTALL</b>
 </br>
 
-<b>Conda</b></br>
-<p style="font-size:10x">conda activate <env></br>
+<b>Conda</b>
+<p style="font-size:9x">conda activate <env></br>
 conda install pip</br>
 pip freeze > requirements_ingfisica.txt</br></p>
   
-<b>PIP</b></br>
-python3 -m venv env</br>
+<b>PIP</b>
+<p style="font-size:9x">python3 -m venv env</br>
 source env/bin/activate</br>
-pip install -r requirements.txt</br>
+pip install -r requirements.txt</br></p>
 
 </br> </br>
 <b>Implementation</b></br>
 The implementation is done in Pytorch and there is a possibility to choose between 2 pre-trained model: ResNet50 and VGG-16. Early stopping, Decay in learning rate factor, Data Augmentation also available.
 
 <b>Training</b>
-train.py</br>
+<p style="font-size:9x">train.py</br>
+or</br>
+Train.</p>
 
 These are the traning results i've got:
 
