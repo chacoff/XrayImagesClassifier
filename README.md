@@ -2,17 +2,17 @@
 
 X-ray chest images of a free covid dataset already split between covid, pneumonia and healthy patients. I got the dataset from: https://www.kaggle.com/pranavraikokte/covid19-image-dataset. It is pretty small with only 317.
 
-<b> Conda Install </b>
+<b>Conda Install</b>
 
-conda activate <env>
-conda install pip
-pip freeze > requirements_ingfisica.txt
+conda activate <env> </br>
+conda install pip</br>
+pip freeze > requirements_ingfisica.txt</br>
   
 <b> pip Install </b>
   
-python3 -m venv env
-source env/bin/activate
-pip install -r requirements.txt
+python3 -m venv env</br>
+source env/bin/activate</br>
+pip install -r requirements.txt</br>
 
 
 <b> Implementation </b>
