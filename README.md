@@ -23,6 +23,10 @@ $ git clone https://github.com/chacoff/XrayImagesClassifier
 
 The implementation is done in Pytorch and there is a possibility to choose between 2 pre-trained model: ResNet50 and VGG-16. Early stopping, Decay in learning rate factor, Data Augmentation also available.
 
+```
+pre_model = 'resnet50'  # vgg16 or resnet50
+```
+
 **Training**
 ```
 train.py
