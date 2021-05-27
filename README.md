@@ -1,6 +1,6 @@
 # Xray Images Classifier for a covid dataset
 
-X-ray chest images of a free covid dataset already split between covid, pneumonia and healthy patients. I got the dataset from: https://www.kaggle.com/pranavraikokte/covid19-image-dataset. It is pretty small with only 317.
+X-ray chest images of a free covid dataset already split between covid, pneumonia and healthy patients. The dataset is pretty small, only 317 images and are already sorted between training and validation.
 
 **Conda**
 ```
@@ -18,6 +18,9 @@ pip install -r requirements_ingfisica.txt
 ```
 $ git clone https://github.com/chacoff/XrayImagesClassifier
 ```
+
+**dataset**
+download from: https://www.kaggle.com/pranavraikokte/covid19-image-dataset. 
 
 **Implementation**
 
