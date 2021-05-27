@@ -6,13 +6,13 @@ X-ray chest images of a free covid dataset already split between covid, pneumoni
 ```
 conda activate <env>
 conda install pip
-pip freeze > requirements_ingfisica.txt
+pip freeze > requirements.txt
 ```
 **PIP**
 ```
 python3 -m venv env
 source env/bin/activate
-pip install -r requirements_ingfisica.txt
+pip install -r requirements.txt
 ```
 **git**
 ```
@@ -20,6 +20,7 @@ $ git clone https://github.com/chacoff/XrayImagesClassifier
 ```
 
 **dataset**
+
 download from: https://www.kaggle.com/pranavraikokte/covid19-image-dataset. 
 
 **Implementation**
