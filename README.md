@@ -38,6 +38,6 @@ These are the traning results i've got:
 If is there anything you'd like to improve, i'll be happy to hearing from you.
 
 <p align='center'>
-<img src="https://github.com/chacoff/XrayImagesClassifier/blob/main/data/Covid_0.74_0100.jpeg" width="280">
-<img src="https://github.com/chacoff/XrayImagesClassifier/blob/main/data/Pneumonia_0.95_0109.jpeg" width="280">
+<img src="https://github.com/chacoff/XrayImagesClassifier/blob/main/data/Covid_0.74_0100.jpeg" width="300">
+<img src="https://github.com/chacoff/XrayImagesClassifier/blob/main/data/Pneumonia_0.95_0109.jpeg" width="300">
 </p>
