@@ -14,6 +14,8 @@ python3 -m venv env
 source env/bin/activate
 pip install -r requirements_ingfisica.txt
 ```
+**git**
+$ git clone https://github.com/chacoff/XrayImagesClassifier
 
 
 **Implementation**
